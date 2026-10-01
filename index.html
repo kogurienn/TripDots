@@ -1,54 +1,20 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TripDots</title>
-
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#12796e"><title>TripDots — 旅の記録を、世界の点に。</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Welcome to TripDots!</h1>
-  <p>旅の記録を、世界の点に。</p>
-
-  <div class="filters">
-    <input type="text" id="search-box" placeholder="行き先を検索">
-  <button data-country="all">All</button>
-  <button data-country="South Korea">Korea</button>
-  <button data-country="Japan">Japan</button>
-  <button data-country="USA">USA</button>
-</div>
-
- <div class="trip-list">
-   <div class="trip-card" data-country="South Korea">
-        <img src="images/jeju.jpeg" alt="Jeju Island">
-    <h2>Jeju Island</h2>
-    <p>South Korea</p>
-    <p>海とごはんを楽しんだ週末旅行。</p>
-    <button data-trip="Jeju Island">詳しく見る</button>
-    
-    </div>
-
-  <div class="trip-card" data-country="Japan">
-    <img src="images/syakotan.jpg" alt="Hokkaido">
-    <h2>Hokkaido</h2>
-    <p>Japan</p>
-    <p>積丹の海とウニを楽しんだ夏旅。</p>
-    <button data-trip="Hokkaido">詳しく見る</button>
-  </div>
-
-  <div class="trip-card" data-country="USA">
-    <img src="images/NY.jpg" alt="New York">
-    <h2>New York</h2>
-    <p>USA</p>
-    <p>街歩きとグルメを満喫した旅行。</p>
-    <button data-trip="New York">詳しく見る</button>
-  </div>
-  
-  <div id="trip-detail"></div>
-   
- </div>
-
- <script src="script.js"></script>
-</body>
-</html>
+<header class="site-header"><a class="brand" href="./"><span class="brand-mark">●</span> TripDots<span class="brand-dot">.</span></a><a class="button primary" href="#post-panel">＋ 旅を記録する</a></header>
+<main>
+<section class="hero"><div><p class="eyebrow">GO SOMEWHERE. KEEP THE MOMENT.</p><h1>次の旅は、<br>ひとつの点から。</h1><p class="hero-copy">心が動いた景色、おいしかった一皿。<br>旅の記録を、世界の点につなげよう。</p><a class="text-link" href="#explore">旅の記録を探す ↗</a></div><div class="hero-photo"><img src="images/syakotan.jpg" alt="積丹の青い海"><span class="photo-caption">43.33° N · 140.35° E<br><strong>Shakotan, Hokkaido</strong></span></div></section>
+<section id="explore" aria-labelledby="explore-title"><div class="section-heading"><div><p class="eyebrow">YOUR NEXT INSPIRATION</p><h2 id="explore-title">旅の点を、見つけよう。</h2></div><span id="result-count" aria-live="polite"></span></div>
+<div class="filters panel"><label class="search-label" for="search-box">行き先や旅のキーワード<input type="search" id="search-box" placeholder="行き先、国、思い出で検索…"></label><div class="filter-row"><span>国・地域</span><div id="country-filters" class="chips" aria-label="国フィルター"></div></div><div class="filter-row"><span>カテゴリ</span><div id="category-filters" class="chips" aria-label="カテゴリフィルター"></div></div></div>
+<div class="explore-layout"><div><div class="trip-list" id="trip-list"></div><p id="empty-state" class="panel" hidden>一致する旅がありません。検索条件を変えてみてください。</p></div><aside class="map-panel panel"><div class="map-heading"><h3>世界に広がる、旅の点</h3><p>ピンを選ぶと旅の詳細が開きます。</p></div><div id="map" aria-label="旅行の地図"></div><p id="map-status" class="map-note" aria-live="polite">投稿時は地図をクリックして位置を選べます。</p></aside></div></section>
+<section id="post-panel" class="post-panel panel" aria-labelledby="post-title"><div><p class="eyebrow">ADD YOUR DOT</p><h2 id="post-title">あなたの旅も、<br>ここに残そう。</h2><p>旅の思い出を、自分だけの地図へ。</p><p class="small">投稿はこのブラウザーに保存されます。<br>他の端末やユーザーとは共有されません。</p></div><form id="trip-form"><div class="form-grid"><label>行き先<input name="title" required maxlength="100" placeholder="例：京都の週末旅"></label><label>国・地域<input name="country" required maxlength="80" list="countries" placeholder="例：Japan"><datalist id="countries"></datalist></label><label>カテゴリ<select name="category"><option>自然</option><option>街歩き</option><option>グルメ</option><option>文化</option><option>その他</option></select></label><label>季節<select name="season"><option>Spring</option><option>Summer</option><option>Autumn</option><option>Winter</option></select></label><label>日数<input name="days" required maxlength="40" placeholder="例：2泊3日"></label><label>画像URL（任意）<input name="image" type="url" placeholder="https://…"></label><label>緯度<input name="lat" type="number" min="-90" max="90" step="any" required placeholder="35.0116"></label><label>経度<input name="lng" type="number" min="-180" max="180" step="any" required placeholder="135.7681"></label></div><p class="small">緯度・経度は上の地図をクリックして入力できます。</p><label>旅の思い出<textarea name="memo" required maxlength="2000" rows="3" placeholder="忘れたくない景色や、おすすめを教えてください。"></textarea></label><div class="form-footer"><p id="form-status" role="status" aria-live="polite"></p><button class="primary" type="submit">旅の点を追加する ↗</button></div></form></section>
+</main><footer><a class="brand" href="./">TripDots.</a><p>旅の記録を、世界の点に。</p></footer>
+<dialog id="trip-detail" aria-labelledby="detail-title"><button id="close-detail" class="close-button" aria-label="詳細を閉じる">×</button><div id="detail-content"></div></dialog>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script><script src="script.js"></script>
+</body></html>
