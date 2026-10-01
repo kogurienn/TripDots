@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TripDots</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Welcome to TripDots!</h1>
+  <p>旅の記録を、世界の点に。</p>
+
+  <div class="filters">
+    <input type="text" id="search-box" placeholder="行き先を検索">
+  <button data-country="all">All</button>
+  <button data-country="South Korea">Korea</button>
+  <button data-country="Japan">Japan</button>
+  <button data-country="USA">USA</button>
+</div>
+
+ <div class="trip-list">
+   <div class="trip-card" data-country="South Korea">
+        <img src="images/jeju.jpeg" alt="Jeju Island">
+    <h2>Jeju Island</h2>
+    <p>South Korea</p>
+    <p>海とごはんを楽しんだ週末旅行。</p>
+    <button data-trip="Jeju Island">詳しく見る</button>
+    
+    </div>
+
+  <div class="trip-card" data-country="Japan">
+    <img src="images/syakotan.jpg" alt="Hokkaido">
+    <h2>Hokkaido</h2>
+    <p>Japan</p>
+    <p>積丹の海とウニを楽しんだ夏旅。</p>
+    <button data-trip="Hokkaido">詳しく見る</button>
+  </div>
+
+  <div class="trip-card" data-country="USA">
+    <img src="images/NY.jpg" alt="New York">
+    <h2>New York</h2>
+    <p>USA</p>
+    <p>街歩きとグルメを満喫した旅行。</p>
+    <button data-trip="New York">詳しく見る</button>
+  </div>
+  
+  <div id="trip-detail"></div>
+   
+ </div>
+
+ <script src="script.js"></script>
+</body>
+</html>
